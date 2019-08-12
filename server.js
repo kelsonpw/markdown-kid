@@ -13,7 +13,7 @@ const pusher = new Pusher({
   key: '0d5c31e9db7a4bddf61e',
   secret: '65d7af0e8c3bb940cbbf',
   cluster: 'us3',
-  encrypted: true,
+  useTLS: true,
 });
 
 app.post('/pusher/auth', (req, res) => {

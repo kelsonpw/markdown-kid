@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import Pusher from 'pusher-js';
 
 Pusher.logToConsole = process.env.NODE_ENV === 'development';
@@ -14,7 +14,7 @@ const PusherInstance = {
   channels: {},
 };
 
-const setPusherClient = client => {
+export const setPusherClient = client => {
   PusherInstance.client = client;
 };
 
@@ -46,7 +46,7 @@ const createTrigger = (channel, event) => data => {
   PusherInstance.client.channels.find(channel).trigger(event, data);
 };
 
-function usePusher(channel, event, onUpdate) {
+export default function usePusher(channel, event, onUpdate) {
   if (!PusherInstance.client) {
     throw new Error('You must set a pusherClient by calling setPusherClient');
   }
@@ -59,8 +59,10 @@ function usePusher(channel, event, onUpdate) {
     };
   }, [channel, event, onUpdate]);
 
-  return createTrigger(channel, event);
-}
+  const triggerEvent = useMemo(() => createTrigger(channel, event), [
+    channel,
+    event,
+  ]);
 
-export default usePusher;
-export { setPusherClient };
+  return triggerEvent;
+}
