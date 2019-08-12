@@ -59,10 +59,5 @@ export default function usePusher(channel, event, onUpdate) {
     };
   }, [channel, event, onUpdate]);
 
-  const triggerEvent = useMemo(() => createTrigger(channel, event), [
-    channel,
-    event,
-  ]);
-
-  return triggerEvent;
+  return useMemo(() => createTrigger(channel, event), [channel, event]);
 }
