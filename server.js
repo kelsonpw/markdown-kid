@@ -9,11 +9,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 const pusher = new Pusher({
-  appId: process.env.PUSHER_APP_ID,
-  key: process.env.PUSHER_APP_KEY,
-  secret: process.env.PUSHER_APP_SECRET,
-  cluster: process.env.PUSHER_APP_CLUSTER,
-  useTLS: true,
+  appId: '840882',
+  key: '0d5c31e9db7a4bddf61e',
+  secret: '65d7af0e8c3bb940cbbf',
+  cluster: 'us3',
+  encrypted: true,
 });
 
 app.post('/pusher/auth', (req, res) => {
